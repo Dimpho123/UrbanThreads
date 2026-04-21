@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Urban Threads</title>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<!--  NAVBAR -->
+<nav class="nav">
+  <h1 class="logo">URBAN THREADS</h1>
+
+  <div class="categories">
+  <button onclick="filterCategory('All')">All</button>
+  <button onclick="filterCategory('Hoodies')">Hoodies</button>
+  <button onclick="filterCategory('T-shirts')">T-Shirts</button>
+  <button onclick="filterCategory('Sneakers')">Sneakers</button>
+  <button onclick="filterCategory('Accessories')">Accessories</button>
+</div>
+  <div class="nav-icons">
+    <span class="material-symbols-outlined">search</span>
+    <span class="material-symbols-outlined" onclick="goToLogin()">Person</span>
+    <span class="material-symbols-outlined" onclick="goToCart()">Shopping_Cart</span>
+</div>
+  
+</nav>
+
+<!-- 🧭 BREADCRUMB -->
+<div class="breadcrumb">
+  SHOP / CLOTHING
+</div>
+
+<!-- 🔧 FILTER BAR -->
+<div class="filter-bar">
+  <div class="view-icons">
+    ⬛ ⬛ ⬛
+  </div>
+
+  <div class="product-count">
+    155 PRODUCTS
+  </div>
+
+  <div class="filters">
+    <button>AVAILABILITY</button>
+    <button>SIZE</button>
+    <button>COLOUR</button>
+  </div>
+</div>
+
+<!-- 🛍️ PRODUCTS GRID -->
+<div id="products" class="products">
+
+</div>
+<script type="module" src="js/index.js"></script>
+</body>
+</html>

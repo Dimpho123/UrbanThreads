@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Urban Threads - Shop</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- 🔝 NAVBAR -->
+<nav>
+  <h2>Urban Threads</h2>
+
+  <div>
+    <span id="user"></span>
+    <a href="cart.html">🛒 Cart</a>
+    <button onclick="logout()">Logout</button>
+  </div>
+</nav>
+
+<!-- 🛍️ PAGE HEADER -->
+<header style="padding: 20px;">
+  <h1>Shop Streetwear</h1>
+  <p>Explore hoodies, sneakers, and more </p>
+</header>
+
+<!-- 🧩 CATEGORY FILTERS (optional but nice) -->
+<div class="categories">
+  <button onclick="filterCategory('All')">All</button>
+  <button onclick="filterCategory('Hoodies')">Hoodies</button>
+  <button onclick="filterCategory('T-shirts')">T-Shirts</button>
+  <button onclick="filterCategory('Sneakers')">Sneakers</button>
+  <button onclick="filterCategory('Accessories')">Accessories</button>
+</div>
+
+<!--  PRODUCTS -->
+<div id="products" class="products">
+  <!-- Products will load here -->
+</div>
+
+<!-- 💤 EMPTY STATE -->
+<p id="empty" style="text-align:center; display:none;">
+  No products found 😢
+</p>
+
+<!-- 🔌 SCRIPTS -->
+<script type="module" src="js/shop.js"></script>
+<script type="module" src="js/auth.js"></script>
+
+</body>
+</html>

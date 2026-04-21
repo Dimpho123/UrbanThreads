@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css">
+<title>Cart</title>
+</head>
+<body>
+
+<h2>Your Cart <span class="material-symbols-outlined" onclick="goToCart()">Shopping_Cart</span>
+ </h2>
+
+<div class="cart-container">
+  <div id="cart"></div>
+
+  <div class="checkout">
+    <h3 id="total"></h3>
+    <button onclick="checkout()">Proceed to Checkout</button>
+  </div>
+</div>
+
+
+
+<script type="module" src="js/cart.js"></script>
+
+</body>
+</html>
