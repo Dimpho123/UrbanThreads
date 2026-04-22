@@ -30,6 +30,9 @@ const loadProducts = async () => {
 
     displayProducts(allProducts);
 
+    // ✅ APPLY CATEGORY AFTER LOAD
+    applySavedCategory();
+
   } catch (error) {
     console.error(error);
     loadFallbackProducts();
@@ -267,6 +270,8 @@ const loadFallbackProducts = () => {
     ];
 
   displayProducts(allProducts);
+  // ✅ APPLY CATEGORY HERE TOO
+  applySavedCategory();
 };
 
 // 🎨 DISPLAY PRODUCTS (GLOBAL ✅)
@@ -341,13 +346,21 @@ window.goToCart = () => {
 window.goToLogin = () => {
   window.location.href = "login.html";
 };
+const applySavedCategory = () => {
+  const selectedCategory = localStorage.getItem("selectedCategory");
 
+  if (selectedCategory) {
+    if (selectedCategory === "All") {
+      displayProducts(allProducts);
+    } else {
+      const filtered = allProducts.filter(
+        p => p.category === selectedCategory
+      );
+      displayProducts(filtered);
+    }
+
+    localStorage.removeItem("selectedCategory");
+  }
+};
 //  RUN
 loadProducts();
-window.goToCart = () => {
-  window.location.href = "cart.html";
-};
-
-window.goToLogin = () => {
-  window.location.href = "login.html";
-};
