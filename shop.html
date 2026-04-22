@@ -2,36 +2,34 @@
 <html>
 <head>
   <title>Urban Threads - Shop</title>
-  <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<!-- 🔝 NAVBAR -->
-<nav>
-  <h2>Urban Threads</h2>
 
-  <div>
-    <span id="user"></span>
-    <a href="cart.html">🛒 Cart</a>
-    <button onclick="logout()">Logout</button>
+
+
+<!-- 🔝 NAVBAR -->
+<nav class="nav">
+  <h1 class="logo">URBAN THREADS</h1>
+
+  <!-- ✅ FIXED CATEGORY BUTTONS -->
+  <div class="categories">
+    <button onclick="goToCategory('All')">All</button>
+    <button onclick="goToCategory('Hoodies')">Hoodies</button>
+    <button onclick="goToCategory('T-shirts')">T-Shirts</button>
+    <button onclick="goToCategory('Sneakers')">Sneakers</button>
+    <button onclick="goToCategory('Accessories')">Accessories</button>
+  </div>
+
+  <div class="nav-icons">
+    <span class="material-symbols-outlined">search</span>
+    <span class="material-symbols-outlined" onclick="goToLogin()">person</span>
+       <span class="material-symbols-outlined" onclick="goToCart()">shopping_cart</span>
+    
   </div>
 </nav>
-
-<!-- 🛍️ PAGE HEADER -->
-<header style="padding: 20px;">
-  <h1>Shop Streetwear</h1>
-  <p>Explore hoodies, sneakers, and more </p>
-</header>
-
-<!-- 🧩 CATEGORY FILTERS (optional but nice) -->
-<div class="categories">
-  <button onclick="filterCategory('All')">All</button>
-  <button onclick="filterCategory('Hoodies')">Hoodies</button>
-  <button onclick="filterCategory('T-shirts')">T-Shirts</button>
-  <button onclick="filterCategory('Sneakers')">Sneakers</button>
-  <button onclick="filterCategory('Accessories')">Accessories</button>
-</div>
-
 <!--  PRODUCTS -->
 <div id="products" class="products">
   <!-- Products will load here -->

@@ -8,51 +8,45 @@
 
 <body>
 
-<!--  NAVBAR -->
+<!-- 🔝 NAVBAR -->
 <nav class="nav">
   <h1 class="logo">URBAN THREADS</h1>
 
+  <!-- ✅ FIXED CATEGORY BUTTONS -->
   <div class="categories">
-  <button onclick="filterCategory('All')">All</button>
-  <button onclick="filterCategory('Hoodies')">Hoodies</button>
-  <button onclick="filterCategory('T-shirts')">T-Shirts</button>
-  <button onclick="filterCategory('Sneakers')">Sneakers</button>
-  <button onclick="filterCategory('Accessories')">Accessories</button>
-</div>
+    <button onclick="goToCategory('All')">All</button>
+    <button onclick="goToCategory('Hoodies')">Hoodies</button>
+    <button onclick="goToCategory('T-shirts')">T-Shirts</button>
+    <button onclick="goToCategory('Sneakers')">Sneakers</button>
+    <button onclick="goToCategory('Accessories')">Accessories</button>
+  </div>
+
   <div class="nav-icons">
     <span class="material-symbols-outlined">search</span>
-    <span class="material-symbols-outlined" onclick="goToLogin()">Person</span>
-    <span class="material-symbols-outlined" onclick="goToCart()">Shopping_Cart</span>
-</div>
-  
+    <span class="material-symbols-outlined" onclick="goToLogin()">person</span>
+    <span class="material-symbols-outlined" onclick="goToCart()">shopping_cart</span>
+  </div>
 </nav>
 
-<!-- 🧭 BREADCRUMB -->
-<div class="breadcrumb">
-  SHOP / CLOTHING
-</div>
+<!-- 🔥 SPLIT HERO -->
+<section class="split-hero">
 
-<!-- 🔧 FILTER BAR -->
-<div class="filter-bar">
-  <div class="view-icons">
-    ⬛ ⬛ ⬛
+  <div class="hero-card hoodies">
+    <div class="overlay">
+      <button onclick="goToCategory('Hoodies')">SHOP HOODIES</button>
+    </div>
   </div>
 
-  <div class="product-count">
-    155 PRODUCTS
+  <div class="hero-card tshirts">
+    <div class="overlay">
+      <button onclick="goToCategory('T-shirts')">SHOP T-SHIRTS</button>
+    </div>
   </div>
 
-  <div class="filters">
-    <button>AVAILABILITY</button>
-    <button>SIZE</button>
-    <button>COLOUR</button>
-  </div>
-</div>
+</section>
 
-<!--  PRODUCTS GRID -->
-<div id="products" class="products">
-
-</div>
+<!-- ✅ SCRIPT -->
 <script type="module" src="js/index.js"></script>
+
 </body>
 </html>

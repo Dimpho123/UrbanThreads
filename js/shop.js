@@ -304,6 +304,7 @@ window.filterCategory = (category) => {
   }
 };
 
+
 // 🛒 CART
 window.addToCart = (id) => {
   let cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -328,5 +329,25 @@ window.addToCart = (id) => {
   alert("Added to cart!");
 };
 
-// 🚀 RUN
+window.goToCategory = (category) => {
+  localStorage.setItem("selectedCategory", category);
+  window.location.href = "shop.html";
+};
+
+window.goToCart = () => {
+  window.location.href = "cart.html";
+};
+
+window.goToLogin = () => {
+  window.location.href = "login.html";
+};
+
+//  RUN
 loadProducts();
+window.goToCart = () => {
+  window.location.href = "cart.html";
+};
+
+window.goToLogin = () => {
+  window.location.href = "login.html";
+};

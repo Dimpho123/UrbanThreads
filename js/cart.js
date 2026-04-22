@@ -142,7 +142,9 @@ setTimeout(() => {
       console.error(error);
     }
   };
-
+window.goBack = () => {
+  window.history.back();
+};
 
 
 window.goToCart = () => {
