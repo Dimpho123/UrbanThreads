@@ -1,16 +1,9 @@
 
 import { auth, db } from "./firebase.js";
-
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-
-import {
-  doc,
-  setDoc
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import {createUserWithEmailAndPassword,signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { doc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 //  SIGNUP FUNCTION
 window.signup = async () => {
@@ -43,7 +36,7 @@ window.login = async () => {
   try {
     await signInWithEmailAndPassword(auth, email, password);
 
-    const redirect = localStorage.getItem("redirectAfterLogin") || "shop.html";
+    const redirect = localStorage.getItem("redirectAfterLogin") || "index.html";
     localStorage.removeItem("redirectAfterLogin");
 
     window.location.href = redirect;
@@ -52,7 +45,6 @@ window.login = async () => {
     alert(error.message);
   }
 };
-
 
 
 window.showSignup = () => {
@@ -66,4 +58,8 @@ window.showLogin = () => {
   document.getElementById("login-form").style.display = "block";
   document.getElementById("form-title").innerText = "Login";
 };
+
+
+
+
 

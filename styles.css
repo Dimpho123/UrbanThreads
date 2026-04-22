@@ -557,7 +557,11 @@ header {
   text-decoration: underline;
 }
 
-
+.message {
+  font-size: 14px;
+  margin: 10px 0;
+  transition: 0.3s;
+}
 
 
 

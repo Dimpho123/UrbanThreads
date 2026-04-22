@@ -7,13 +7,7 @@ const container = document.getElementById("products");
 
 let allProducts = [];
 
-// 🔐 AUTH CHECK
-onAuthStateChanged(auth, (user) => {
-  if (!user) {
-    alert("You must login first");
-    window.location.href = "login.html";
-  }
-});
+
 
 // 📦 LOAD PRODUCTS
 const loadProducts = async () => {

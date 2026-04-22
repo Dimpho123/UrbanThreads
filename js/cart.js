@@ -2,17 +2,12 @@ import { db } from "./firebase.js";
 import { auth } from "./firebase.js";
 import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
 const cartContainer = document.getElementById("cart");
 const totalEl = document.getElementById("total");
 
-// fallback (for safety)
-const fallbackProducts = [
-  { id: "1", name: "Oversized Hoodie", price: 499 },
-  { id: "2", name: "Street T-Shirt", price: 299 },
-  { id: "3", name: "Nike Sneakers", price: 1299 },
-  { id: "4", name: "Cap Hat", price: 199 }
-];
+
 
 const loadCart = () => {
   cartContainer.innerHTML = "";
@@ -88,31 +83,66 @@ window.removeItem = (id) => {
 loadCart();
 
 
-  let currentUser = null;
 
+ let currentUser = null;
+let authReady = false;
+
+// Runs once when page loads
 onAuthStateChanged(auth, (user) => {
+  console.log("Auth state:", user)
   currentUser = user;
+  authReady = true;
 });
 
 window.checkout = () => {
-  const user = auth.currentUser;
+  
+  if (!authReady) {
+    alert("Loading... try again");
+    return;
+  }
 
-  if (!user) {
+  // ❌ not logged in
+  if (!currentUser) {
+    localStorage.setItem("redirectAfterLogin", "cart.html");
+    localStorage.setItem("redirectAction", "checkout");
     alert("Please login before checkout");
 
     localStorage.setItem("redirectAfterLogin", "cart.html");
     window.location.href = "login.html";
     return;
   }
+completeCheckout();
+};
 
-  // ✅ Logged in
+   
+ const completeCheckout = () => {
   alert("Order placed successfully 🎉");
-
+  
   localStorage.removeItem("cart");
   loadCart();
-};
   
-  
+const redirectAction = localStorage.getItem("redirectAction");
+if (redirectAction === "checkout") {
+localStorage.removeItem("redirectAction");
+
+setTimeout(() => {
+  checkout();
+}, 500);
+}
+
+
+ }
+  window.logout = async () => {
+    try {
+    await signOut(auth);
+    localStorage.setItem("authMessage", "Logged out successfully");
+    window.location.href = "index.html";
+    alert("Logged out");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
 
 
 window.goToCart = () => {
