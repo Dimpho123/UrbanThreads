@@ -7,6 +7,36 @@ import { signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth
 const cartContainer = document.getElementById("cart");
 const totalEl = document.getElementById("total");
 
+const userSummaryEl = document.getElementById("userSummary");
+
+const displayUserInfo = async (user) => {
+  if (!user) {
+    userSummaryEl.innerHTML = "<p></p>";
+    return;
+  }
+
+  try {
+    const docRef = doc(db, "users", user.uid);
+    const docSnap = await getDoc(docRef);
+
+    let name = user.email; // fallback
+
+    if (docSnap.exists()) {
+      name = docSnap.data().name || user.email;
+    }
+
+    userSummaryEl.innerHTML = `
+      <div class="user-card">
+        <h3><span class="material-symbols-outlined user-icon">person</span> ${name}</h3>
+        <p>${user.email}</p>
+      </div>
+    `;
+
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 
 
 const loadCart = () => {
@@ -40,12 +70,19 @@ const loadCart = () => {
 
         <p>Subtotal: R${itemTotal}</p>
 
-        <button onclick="removeItem('${item.id}')">Remove</button>
+        <button class="remove-btn" onclick="removeItem('${item.id}')">Remove</button>
       </div>
     `;
   });
 
-  totalEl.innerText = "Total: R" + total;
+  totalEl.innerHTML = `
+  <div class="order-summary">
+    <h2>Order Summary</h2>
+    <p>Total Items: ${cart.length}</p>
+    <h3>Total: R${total}</h3>
+    <button onclick="checkout()">Checkout</button>
+  </div>
+`;
 };
 
 
@@ -92,6 +129,8 @@ onAuthStateChanged(auth, (user) => {
   console.log("Auth state:", user)
   currentUser = user;
   authReady = true;
+
+  displayUserInfo(user);
 });
 
 window.checkout = () => {
@@ -101,7 +140,7 @@ window.checkout = () => {
     return;
   }
 
-  // ❌ not logged in
+  // not logged in
   if (!currentUser) {
     localStorage.setItem("redirectAfterLogin", "cart.html");
     localStorage.setItem("redirectAction", "checkout");
@@ -116,7 +155,7 @@ completeCheckout();
 
    
  const completeCheckout = () => {
-  alert("Order placed successfully 🎉");
+  alert("Order placed successfully");
   
   localStorage.removeItem("cart");
   loadCart();
