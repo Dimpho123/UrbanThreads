@@ -27,8 +27,8 @@ const displayUserInfo = async (user) => {
 
     userSummaryEl.innerHTML = `
       <div class="user-card">
-        <h3><span class="material-symbols-outlined user-icon">person</span> ${name}</h3>
-        <p>${user.email}</p>
+        <h3><span class="material-symbols-outlined user-icon">person</span> Hi ${name}!</h3>
+        
       </div>
     `;
 
