@@ -6,8 +6,43 @@ import { signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth
 
 const cartContainer = document.getElementById("cart");
 const totalEl = document.getElementById("total");
-
 const userSummaryEl = document.getElementById("userSummary");
+
+const modal = document.getElementById("modal");
+const modalMessage = document.getElementById("modalMessage");
+const modalTitle = document.getElementById("modalTitle");
+const modalConfirm = document.getElementById("modalConfirm");
+const modalCancel = document.getElementById("modalCancel");
+
+const showModal = ({
+  title = "Message",
+  message = "",
+  confirmText = "OK",
+  cancelText = "Cancel",
+  onConfirm = null,
+  onCancel = null,
+  showCancel = true
+}) => {
+  modalTitle.innerText = title;
+  modalMessage.innerText = message;
+
+  modalConfirm.innerText = confirmText;
+  modalCancel.innerText = cancelText;
+
+  modalCancel.style.display = showCancel ? "block" : "none";
+
+  modal.classList.add("show");
+
+  modalConfirm.onclick = () => {
+    modal.classList.remove("show");
+    if (onConfirm) onConfirm();
+  };
+
+  modalCancel.onclick = () => {
+    modal.classList.remove("show");
+    if (onCancel) onCancel();
+  };
+};
 
 const displayUserInfo = async (user) => {
   if (!user) {
@@ -19,7 +54,7 @@ const displayUserInfo = async (user) => {
     const docRef = doc(db, "users", user.uid);
     const docSnap = await getDoc(docRef);
 
-    let name = user.email; // fallback
+    let name = user.email; 
 
     if (docSnap.exists()) {
       name = docSnap.data().name || user.email;
@@ -117,6 +152,10 @@ window.removeItem = (id) => {
   loadCart();
 };
 
+window.goToCategory = (category) => {
+  localStorage.setItem("selectedCategory", category);
+  window.location.href = "shop.html";
+};
 loadCart();
 
 
@@ -124,7 +163,7 @@ loadCart();
  let currentUser = null;
 let authReady = false;
 
-// Runs once when page loads
+
 onAuthStateChanged(auth, (user) => {
   console.log("Auth state:", user)
   currentUser = user;
@@ -144,10 +183,18 @@ window.checkout = () => {
   if (!currentUser) {
     localStorage.setItem("redirectAfterLogin", "cart.html");
     localStorage.setItem("redirectAction", "checkout");
-    alert("Please login before checkout");
-
+    showModal({
+  title: "Login Required",
+  message: "Please login before checkout",
+  confirmText: "Login",
+  cancelText: "Cancel",
+  onConfirm: () => {
     localStorage.setItem("redirectAfterLogin", "cart.html");
     window.location.href = "login.html";
+  }
+});
+
+    
     return;
   }
 completeCheckout();
@@ -155,7 +202,12 @@ completeCheckout();
 
    
  const completeCheckout = () => {
-  alert("Order placed successfully");
+ showModal({
+  title: "Success ",
+  message: "Order placed successfully",
+  confirmText: "OK",
+  showCancel: false
+});
   
   localStorage.removeItem("cart");
   loadCart();
@@ -164,23 +216,24 @@ const redirectAction = localStorage.getItem("redirectAction");
 if (redirectAction === "checkout") {
 localStorage.removeItem("redirectAction");
 
-setTimeout(() => {
-  checkout();
-}, 500);
+
 }
 
 
  }
-  window.logout = async () => {
-    try {
-    await signOut(auth);
-    localStorage.setItem("authMessage", "Logged out successfully");
-    window.location.href = "index.html";
-    alert("Logged out");
-    } catch (error) {
-      console.error(error);
+ window.logout = () => {
+  showModal({
+    title: "Logout",
+    message: "Are you sure you want to logout?",
+    confirmText: "Logout",
+    cancelText: "Stay",
+    onConfirm: async () => {
+      await signOut(auth);
+      window.location.href = "index.html";
     }
-  };
+  });
+};
+   
 window.goBack = () => {
   window.history.back();
 };

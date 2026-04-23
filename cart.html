@@ -33,16 +33,31 @@
 
   <div class="checkout">
     <h3 id="total"></h3>
-    
-    
-    
-    
-     <button class="logout-btn" onclick="logout()">
+    <button class="logout-btn" onclick="logout()">
   <span class="material-symbols-outlined">logout</span>
   Logout
 </button>
   </div>
 </div>
+ 
+<div id="modal" class="modal">
+  <div class="modal-box">
+    
+    <span class="material-symbols-outlined modal-icon" id="modalIcon">
+      info
+    </span>
+
+    <h3 id="modalTitle">Message</h3>
+    <p id="modalMessage"></p>
+
+    <div class="modal-actions">
+      <button id="modalCancel" class="modal-btn cancel">Cancel</button>
+      <button id="modalConfirm" class="modal-btn confirm">OK</button>
+    </div>
+
+  </div>
+</div>
+
 <button class="back-btn" onclick="goBack()">
   <span class="material-symbols-outlined">arrow_back</span>
   Back

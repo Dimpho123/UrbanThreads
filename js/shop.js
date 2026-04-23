@@ -7,9 +7,43 @@ const container = document.getElementById("products");
 
 let allProducts = [];
 
+const modal = document.getElementById("modal");
+const modalMessage = document.getElementById("modalMessage");
+const modalTitle = document.getElementById("modalTitle");
+const modalConfirm = document.getElementById("modalConfirm");
+const modalCancel = document.getElementById("modalCancel");
 
+const showModal = ({
+  title = "Message",
+  message = "",
+  confirmText = "OK",
+  cancelText = "Cancel",
+  onConfirm = null,
+  onCancel = null,
+  showCancel = false
+}) => {
+  modalTitle.innerText = title;
+  modalMessage.innerText = message;
 
-// 📦 LOAD PRODUCTS
+  modalConfirm.innerText = confirmText;
+  modalCancel.innerText = cancelText;
+
+  modalCancel.style.display = showCancel ? "block" : "none";
+
+  modal.classList.add("show");
+
+  modalConfirm.onclick = () => {
+    modal.classList.remove("show");
+    if (onConfirm) onConfirm();
+  };
+
+  modalCancel.onclick = () => {
+    modal.classList.remove("show");
+    if (onCancel) onCancel();
+  };
+};
+
+//  LOAD PRODUCTS
 const loadProducts = async () => {
   container.innerHTML = "";
 
@@ -30,7 +64,7 @@ const loadProducts = async () => {
 
     displayProducts(allProducts);
 
-    // ✅ APPLY CATEGORY AFTER LOAD
+    //APPLY CATEGORY AFTER LOAD
     applySavedCategory();
 
   } catch (error) {
@@ -78,11 +112,27 @@ window.filterCategory = (category) => {
 
 // CART
 window.addToCart = (id) => {
+  console.log("Clicked ID:", id);
+  console.log("All products:", allProducts);
+
   let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-  const product = allProducts.find(p => p.id === id);
+  const product = allProducts.find(p => String(p.id) === String(id));
 
-  const existing = cart.find(item => item.id === id);
+  
+  if (!product) {
+    console.error("Product NOT FOUND:", id);
+
+    showModal({
+      title: "Error",
+      message: "Product failed to load. Try again.",
+      confirmText: "OK"
+    });
+
+    return;
+  }
+
+  const existing = cart.find(item => item.id === product.id);
 
   if (existing) {
     existing.qty += 1;
@@ -97,7 +147,12 @@ window.addToCart = (id) => {
   }
 
   localStorage.setItem("cart", JSON.stringify(cart));
-  alert("Added to cart!");
+
+  showModal({
+    title: "Added to Cart",
+    message: `${product.name} added successfully`,
+    confirmText: "OK"
+  });
 };
 
 window.goToCategory = (category) => {
