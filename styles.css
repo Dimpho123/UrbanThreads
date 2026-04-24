@@ -62,9 +62,53 @@ html {
   font-size: 14px;
 }
 
+/* Nav icon container */
+.nav-icons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Icons */
 .nav-icons span {
-  margin-left: 15px;
+  font-size: 28px;
+  padding: 10px;
+  border-radius: 50%;
   cursor: pointer;
+  transition: all 0.3s ease;
+  touch-action: manipulation; 
+}
+
+
+.nav-icons span:hover {
+  background: #f1f1f1;
+  transform: scale(1.1);
+}
+
+
+.nav-icons span:active {
+  transform: scale(0.95);
+  background: #ddd;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .nav-icons {
+    gap: 5px;
+  }
+
+  .nav-icons span {
+    font-size: 24px;
+    padding: 12px; 
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-icons span {
+    font-size: 22px;
+    padding: 10px;
+  }
 }
 .nav-right {
   display: flex;
@@ -983,7 +1027,7 @@ header {
 /* CARD */
 .hero-card {
   position: relative;
-  background-size: 650px;
+  background-size: cover;
   background-position: center;
   cursor: pointer;
   overflow: hidden;
